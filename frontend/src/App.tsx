@@ -15,7 +15,8 @@ type ChatApiSuccess = {
   reply?: string;
 };
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api/chat";
+const API_BASE_URL = (import.meta.env.VITE_API_URL || "http://localhost:3000").replace(/\/$/, "");
+const API_URL = `${API_BASE_URL}/api/chat`;
 const CONTEXT_WINDOW_SIZE = 4;
 const INITIAL_ASSISTANT_TEXT = "Hi, send a message to start chatting.";
 const welcomeMessage: ChatMessage = {

@@ -1,16 +1,19 @@
 # AI Developer Productivity Assistant
 
-AI-powered full-stack chat app for coding, debugging, explanations, and learning support using Gemini or OpenAI.
+This is a full-stack AI chat app I built as a learning project.
 
-## Features
+The idea was to make something useful for developer tasks like code generation, debugging help, concept explanation, and planning. It currently supports both Gemini and OpenAI, with Gemini set as the default.
 
-- Interactive chat UI for developer workflows
-- Multiple AI modes: `code`, `debug`, `explain`, `plan`
-- Modular backend service layer
-- Provider switch support for `Gemini` and `OpenAI`
-- Markdown and code block rendering in responses
+## What it does
 
-## Tech Stack
+- chat interface built with React
+- different modes for `code`, `debug`, `explain`, and `plan`
+- switch between `Gemini` and `OpenAI`
+- markdown and code block rendering in the chat UI
+- mode-based prompt + temperature tuning
+- small sliding context window so follow-up messages make more sense
+
+## Stack
 
 **Frontend**
 - React
@@ -24,52 +27,30 @@ AI-powered full-stack chat app for coding, debugging, explanations, and learning
 - Express
 
 **AI**
-- Gemini API (default)
+- Gemini API
 - OpenAI API
-
-## Project Structure
-
-```text
-Backend/
-|-- config/
-|-- controllers/
-|-- routes/
-|-- services/
-|   |-- ai.service.js
-|   |-- gemini.service.js
-|   `-- openai.service.js
-|-- utils/
-|   `-- promptBuilder.js
-`-- server.js
-
-frontend/
-`-- src/
-    |-- components/
-    |-- App.tsx
-    `-- main.tsx
-```
 
 ## API
 
 `POST /api/chat`
 
-## Setup
+## Local setup
 
-1. Install backend dependencies
+Install backend dependencies:
 
 ```bash
 cd Backend
 npm install
 ```
 
-2. Install frontend dependencies
+Install frontend dependencies:
 
 ```bash
 cd frontend
 npm install
 ```
 
-3. Create `Backend/.env`
+Create `Backend/.env`:
 
 ```env
 PORT=3000
@@ -78,12 +59,14 @@ GEMINI_API_KEY=your_gemini_api_key
 OPENAI_API_KEY=your_openai_api_key
 ```
 
-4. Run both apps
+Run backend:
 
 ```bash
 cd Backend
 npm run dev
 ```
+
+Run frontend:
 
 ```bash
 cd frontend
@@ -92,12 +75,11 @@ npm run dev
 
 ## Notes
 
-- `Gemini` is the default provider
-- `OpenAI` is also supported through the same backend route
-- Responses are rendered as markdown with code highlighting
+- Gemini is the default provider right now
+- OpenAI is still available through the same backend route
+- recent chat history is included as a small context window
 
-## Future Improvements
+## Future improvements
 
-- Streaming responses
-- Conversation context window
-- Persistent chat history
+- streaming responses
+- persistent chat history

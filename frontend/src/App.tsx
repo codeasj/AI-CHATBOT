@@ -16,10 +16,12 @@ type ChatApiSuccess = {
 };
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api/chat";
+const CONTEXT_WINDOW_SIZE = 4;
+const INITIAL_ASSISTANT_TEXT = "Hi, send a message to start chatting.";
 const welcomeMessage: ChatMessage = {
   id: crypto.randomUUID(),
   role: "assistant",
-  content: "Hi, send a message to start chatting.",
+  content: INITIAL_ASSISTANT_TEXT,
 };
 
 export default function App() {
@@ -46,6 +48,10 @@ export default function App() {
       role: "user",
       content: input,
     };
+    const recentMessages = [...messages, userMessage]
+      .filter((item) => item.content !== INITIAL_ASSISTANT_TEXT)
+      .slice(-CONTEXT_WINDOW_SIZE)
+      .map(({ role, content }) => ({ role, content }));
 
     setMessages((current) => [...current, userMessage]);
     setIsLoading(true);
@@ -53,6 +59,7 @@ export default function App() {
     try {
       const { data } = await axios.post<ChatApiSuccess>(API_URL, {
         message: input,
+        messages: recentMessages,
         mode,
         provider,
       });
